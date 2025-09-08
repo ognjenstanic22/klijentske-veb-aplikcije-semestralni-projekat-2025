@@ -16,14 +16,10 @@ const client = axios.create({
 
 export class MovieService{
     
-    static async getMovies(page: number = 0, size: number = 10){
+    static async getMovies(){
         return client.request({
             url: '/movie',
             method: 'GET',
-            params: {
-                'page': page,
-                'size': size,
-            }
         })
     }
 

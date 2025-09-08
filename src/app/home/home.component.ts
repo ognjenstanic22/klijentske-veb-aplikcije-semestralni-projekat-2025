@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, SlicePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MovieService } from '../../services/movie.service';
 import { MovieModel } from '../../models/movie.model';
@@ -9,7 +9,7 @@ import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-home',
-  imports: [NgIf, NgFor, MatButtonModule, MatCardModule],
+  imports: [NgIf, NgFor, MatButtonModule, MatCardModule, SlicePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

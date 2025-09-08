@@ -8,10 +8,10 @@
 </div>
 
 <div *ngIf="movies" class="container">
-    <mat-card class="example-card" appearance="outlined" *ngFor="let movie of movies">
+    <mat-card class="example-card" appearance="outlined" *ngFor="let movie of movies | slice: 0 : 12">
         <img mat-card-image [src]="generateMovieImage(movie.poster)" [alt]="movie.title">
         <mat-card-content>
-            <h1>{{movie.title}}</h1>
+            <h3>{{movie.title}}</h3>
             <p>{{movie.runTime}}</p>
             <p>Pocetak projekcije{{movie.startDate}}</p>
             <p>Kreiran {{formatDate(movie.createdAt)}}</p>
