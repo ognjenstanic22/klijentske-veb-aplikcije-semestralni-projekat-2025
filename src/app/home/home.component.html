@@ -1,14 +1,39 @@
-<div *ngIf="error">
-    <h3>Oops, an error occured!</h3>
-    <p style="color: red">{{error}}</p>
+<div *ngIf="error" class="container">
+    <mat-card class="loading" appearance="outlined" color="red">
+        <mat-card-content>
+            <h1>Oops, an error occured!</h1>
+            <p style="color: red">{{error}}</p>
+        </mat-card-content>
+    </mat-card>
 </div>
 
-<div *ngIf="movies">
-    <p *ngFor="let movie of movies">{{movie.movieId}} {{movie.title}} {{movie.runTime}}</p>
-    <pre>{{movies | json}}</pre>
+<div *ngIf="movies" class="container">
+    <mat-card class="example-card" appearance="outlined" *ngFor="let movie of movies">
+        <img mat-card-image [src]="generateMovieImage(movie.poster)" [alt]="movie.title">
+        <mat-card-content>
+            <h1>{{movie.title}}</h1>
+            <p>{{movie.runTime}}</p>
+            <p>Pocetak projekcije{{movie.startDate}}</p>
+            <p>Kreiran {{formatDate(movie.createdAt)}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button>
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Details
+            </button>
+            <button mat-button>
+                <i class="fa-solid fa-cart-shopping"></i> Order now
+            </button>
+        </mat-card-actions>
+    </mat-card>
+    
 </div>
 
-<div *ngIf="!movies && !error">
-    <p>Podaci se ucitavaju!</p>
+<div *ngIf="!movies && !error" class="container">
+    <mat-card class="loading" appearance="outlined">
+        <img mat-card-image src="/assets/loading.svg" width="100">
+        <mat-card-content>
+            <h1>Please wait!</h1>
+            <p>We are loading available movies...</p>
+        </mat-card-content>
+    </mat-card>
 </div>
-
