@@ -8,7 +8,7 @@
 </div>
 
 <div *ngIf="movies" class="container">
-    <mat-card class="example-card" appearance="outlined" *ngFor="let movie of movies | slice: 0 : 12">
+    <mat-card class="example-card" appearance="outlined" *ngFor="let movie of movies | slice: 0 : 3">
         <img mat-card-image [src]="generateMovieImage(movie.poster)" [alt]="movie.title">
         <mat-card-content>
             <h3>{{movie.title}}</h3>
