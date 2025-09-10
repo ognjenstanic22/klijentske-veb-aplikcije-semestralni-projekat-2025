@@ -17,12 +17,18 @@ body {
 .container {
     margin-top: 30px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
 }
 
+.poster{
+    max-height: 250px;
+}
+
 .example-card {
-    max-width: 200px;
+    margin: 20px;
+    width: 300px;
 }
 
 .loading {
