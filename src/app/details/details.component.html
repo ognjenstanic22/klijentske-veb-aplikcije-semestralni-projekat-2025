@@ -1,0 +1,6 @@
+<div class="wrapper" *ngIf="movie">
+    <img [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
+    <pre>{{movie | json}}</pre>
+</div>
+
+<app-loading *ngIf="!movie"/>

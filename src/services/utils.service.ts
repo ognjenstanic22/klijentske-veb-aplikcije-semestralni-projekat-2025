@@ -10,4 +10,12 @@ export class UtilsService {
   public formatDate(iso: string){
     return new Date(iso).toLocaleString('sr-RS')
   }
+
+  public generateMovieImage(movieImage: string){
+    return `${movieImage}`
+  }
+
+  public generateMoviePrice(moviePrice: number){
+    return moviePrice*8;
+  }
 }

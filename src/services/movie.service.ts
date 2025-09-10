@@ -23,6 +23,10 @@ export class MovieService{
         })
     }
 
+    static async getMoviesByShortUrl(url: string) {
+        return client.get(`/movie/short/${url}`)
+    }
+
     static async getMoviesById(id: number) {
         return client.get(`/movie/${id}`)
     }
