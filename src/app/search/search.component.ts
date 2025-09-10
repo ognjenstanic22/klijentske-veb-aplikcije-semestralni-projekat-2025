@@ -4,10 +4,11 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import { MovieModel } from '../../models/movie.model';
 import { MovieService } from '../../services/movie.service';
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-search',
-  imports: [MatTableModule, NgIf, MatButtonModule],
+  imports: [MatTableModule, NgIf, MatButtonModule, LoadingComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
