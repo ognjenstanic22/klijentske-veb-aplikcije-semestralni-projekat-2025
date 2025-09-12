@@ -7,9 +7,15 @@
     <a routerLink="/search" mat-button>
         <i class="fa-solid fa-magnifying-glass"></i> Pretraga
     </a>
-    <a routerLink="/login" mat-button>
+    <a routerLink="/login" mat-button *ngIf="!service.getActiveUser()">
         <i class="fa-solid fa-right-to-bracket"></i> Prijava
     </a>
+    <a routerLink="/user" mat-button *ngIf="service.getActiveUser()">
+        <i class="fa-solid fa-user"></i> Profil
+    </a>
+    <button mat-button *ngIf="service.getActiveUser()" (click)="doLogout()">
+        <i class="fa-solid fa-right-from-bracket"></i> Odjavi se
+    </button>
     <a routerLink="/about" mat-button>
         <i class="fa-solid fa-circle-info"></i> O aplikaciji
     </a>

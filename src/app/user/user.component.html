@@ -1,0 +1,14 @@
+<div>
+    <div *ngIf="orders.length == 0">
+        <p>No orders</p>
+    </div>
+
+    <div *ngIf="orders.length > 0">
+        <h3>List of orders</h3>
+        <ul>
+            <li *ngFor="let order of orders">
+                {{order.title}} {{order.runTime}} {{order.pricePerItem}}
+            </li>
+        </ul>
+    </div>
+</div>
