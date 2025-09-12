@@ -1,0 +1,14 @@
+.movie-card {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 40%;
+    margin: 20px;
+}
+
+.movie-content {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

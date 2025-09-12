@@ -1,29 +1,27 @@
 <div class="wrapper" *ngIf="movie">
-    <mat-card class="example-card" appearance="outlined">
-        <img [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
-        <mat-card-content>
-            <mat-list role="list">
-                <mat-list-item>{{movie.title}}</mat-list-item>
-                <mat-list-item *ngFor="let genre of utils.getGenres(allGenres) ">{{genre}}</mat-list-item>
-                <mat-list-item></mat-list-item>
-                <mat-list-item></mat-list-item>
-            </mat-list>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-button>
-                <i class="fa-solid fa-cart-shopping"></i> Rezerviši
-            </button>
-        </mat-card-actions>
-    </mat-card>
-    <mat-card>
-        <mat-card-content>
-            <p>
-                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                bred for hunting.
-            </p>
-        </mat-card-content>
-    </mat-card>
+    <div class="movie-content">
+        <mat-card class="movie-card">
+            <img [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
+        </mat-card>
+        <mat-card class="movie-card" appearance="outlined">
+            <mat-card-content>
+                <h1>{{movie.title}}</h1>
+                <mat-list role="list">
+                    <mat-list-item>Žanrovi:
+                        <span *ngFor="let genre of utils.getGenres(allGenres); let isLast = last">
+                            {{genre}}
+                            <span *ngIf="!isLast">, </span>
+                        </span>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button>
+                    <i class="fa-solid fa-cart-shopping"></i> Rezerviši
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>
 
 <app-loading *ngIf="!movie" />
