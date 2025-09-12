@@ -31,7 +31,7 @@ export interface OrderModel {
     createdAt: string
     startDate: string
     count: number
-    pricePerItem: string
+    pricePerItem: number
     status: 'rezervisano' | 'gledano' | 'otkazano'
     rating: null | boolean
 }

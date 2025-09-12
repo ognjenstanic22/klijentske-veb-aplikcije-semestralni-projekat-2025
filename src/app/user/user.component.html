@@ -1,10 +1,14 @@
 <div>
+    <button mat-button (click)="doChangePassword()">
+        Promeni Lozinku
+    </button>
+
     <div *ngIf="orders.length == 0">
-        <p>No orders</p>
+        <p>Nema rezervacija</p>
     </div>
 
     <div *ngIf="orders.length > 0">
-        <h3>List of orders</h3>
+        <h3>Lista rezervacija</h3>
         <ul>
             <li *ngFor="let order of orders">
                 {{order.title}} {{order.runTime}} {{order.pricePerItem}}

@@ -32,9 +32,9 @@
                 <a mat-button [routerLink]="['/details/', element.shortUrl]">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i> Detalji
                 </a>
-                <button mat-button>
+                <a mat-button [routerLink]="['/details/'+element.shortUrl+'/order']">
                     <i class="fa-solid fa-cart-shopping"></i> Rezerviši
-                </button>
+                </a>
             </td>
         </ng-container>
 
@@ -43,4 +43,4 @@
     </table>
 </div>
 
-<app-loading *ngIf="!dataSource"/>
+<app-loading *ngIf="!dataSource" />
