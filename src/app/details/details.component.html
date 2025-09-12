@@ -5,7 +5,7 @@
         </mat-card>
         <mat-card class="movie-card" appearance="outlined">
             <mat-card-content>
-                <h1>{{movie.title}}</h1>
+                <h1 class="text-wrap">{{movie.title}}</h1>
                 <mat-list role="list">
                     <mat-list-item>Žanrovi:
                         <span *ngFor="let genre of utils.getGenres(allGenres); let isLast = last">
@@ -17,7 +17,7 @@
             </mat-card-content>
             <mat-card-actions>
                 <a mat-button [routerLink]="['/details/'+movie.shortUrl+'/order']">
-                    <i class="fa-solid fa-cart-shopping"></i> Rezerviši
+                    <i class="fa-solid fa-cart-shopping"></i> Idi na rezervaciju
                 </a>
             </mat-card-actions>
         </mat-card>

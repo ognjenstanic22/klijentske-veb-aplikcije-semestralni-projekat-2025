@@ -9,6 +9,7 @@ import { NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-order',
@@ -31,7 +32,7 @@ export class OrderComponent {
   }
 
   public doOrder(){
-    
+    const result = UserService.createOrder
   }
 
 }

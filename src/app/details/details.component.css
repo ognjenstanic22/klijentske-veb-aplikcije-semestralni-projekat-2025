@@ -1,7 +1,7 @@
 .movie-card {
     display: flex;
     flex-wrap: wrap;
-    min-width: 40%;
+    width: 40%;
     margin: 20px;
 }
 

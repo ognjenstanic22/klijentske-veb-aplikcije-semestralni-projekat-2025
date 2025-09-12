@@ -1,5 +1,5 @@
 import { DirectorModel } from "./director.model"
-import { MovieActors } from "./movieActors.model"
+import { MovieActorsModel } from "./movieActors.model"
 import { MovieGenreModel } from "./movieGenre.model"
 
 export interface MovieModel {
@@ -19,6 +19,6 @@ export interface MovieModel {
     createdAt: string
     updatedAt: null | string
     director: DirectorModel
-    movieActors: MovieActors[]
+    movieActors: MovieActorsModel[]
     movieGenres: MovieGenreModel[]
 }

@@ -1,8 +1,8 @@
-import { Actor } from "./actor.model"
+import { ActorModel } from "./actor.model"
 
-export interface MovieActors {
+export interface MovieActorsModel {
     movieActorId: number
     movieId: number
     actorId: number
-    actor: Actor
+    actor: ActorModel
 }
