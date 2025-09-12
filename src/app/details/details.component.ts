@@ -8,7 +8,7 @@ import { LoadingComponent } from "../loading/loading.component";
 import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
-import { GenreModel } from '../../models/genre.model';
+import { MovieGenreModel } from '../../models/movieGenre.model';
 
 @Component({
   selector: 'app-details',
@@ -18,7 +18,7 @@ import { GenreModel } from '../../models/genre.model';
 })
 export class DetailsComponent {
   public movie: MovieModel | null = null
-  public allGenres: GenreModel[] | null = null
+  public allGenres: MovieGenreModel[] | null = null
 
   public constructor(private route: ActivatedRoute, public utils: UtilsService){
     route.params.subscribe(params=>{

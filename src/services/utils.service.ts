@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MovieModel } from '../models/movie.model';
-import { GenreModel } from '../models/genre.model';
+import { MovieGenreModel } from '../models/movieGenre.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class UtilsService {
     return moviePrice * 8;
   }
 
-  public getGenres(allGenres: GenreModel[] | null) {
+  public getGenres(allGenres: MovieGenreModel[] | null) {
     let genre: string[] | null = []
 
     if (allGenres) {

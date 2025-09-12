@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MovieModel } from '../../models/movie.model';
-import { GenreModel } from '../../models/genre.model';
+import { MovieGenreModel } from '../../models/movieGenre.model';
 import { ActivatedRoute } from '@angular/router';
 import { UtilsService } from '../../services/utils.service';
 import { MovieService } from '../../services/movie.service';
@@ -18,7 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class OrderComponent {
   public movie: MovieModel | null = null
-  public allGenres: GenreModel[] | null = null
+  public allGenres: MovieGenreModel[] | null = null
 
   public constructor(private route: ActivatedRoute, public utils: UtilsService){
     route.params.subscribe(params=>{

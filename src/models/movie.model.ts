@@ -1,3 +1,7 @@
+import { DirectorModel } from "./director.model"
+import { MovieActors } from "./movieActors.model"
+import { MovieGenreModel } from "./movieGenre.model"
+
 export interface MovieModel {
     movieId: number
     internalId: string
@@ -14,29 +18,7 @@ export interface MovieModel {
     active: boolean
     createdAt: string
     updatedAt: null | string
-    director: {
-        directorId: number
-        name: string
-        createdAt: string
-    }
-    movieActors: {
-        movieActorId: number
-        movieId: number
-        actorId: number
-        actor: {
-            actorId: number
-            name: string
-            createdAt: string
-        }
-    }
-    movieGenres: {
-        movieGenreId: number
-        movieId: number
-        genreId: number
-        genre: {
-            genreId: number
-            name: string
-            createdAt: string
-        }
-    }
+    director: DirectorModel
+    movieActors: MovieActors[]
+    movieGenres: MovieGenreModel[]
 }
