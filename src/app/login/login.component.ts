@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,15 +18,15 @@ export class LoginComponent {
   public email: string = ''
   public password: string = ''
 
-  public updateEmail(e: any) {
-    this.email = e.target.value
-  }
-
-  public updatePassword(p: any) {
-    this.password = p.target.value
-  }
+  constructor(private router: Router) { }
 
   public doLogin() {
-    alert('Not implemented yet')
+    if (UserService.login(this.email, this.password)) {
+      this.router.navigate(['/about'])
+      return
+    }
+
+    alert('Loša e-mail adresa ili šifra')
   }
+
 }
