@@ -4,8 +4,8 @@ import { MovieGenreModel } from "./movieGenre.model"
 
 export interface OrderModel {
     shortUrl: string
-    title: number
-    description: string
+    title: string
+    shortDescription: string
     runTime: number
     movieGenres: MovieGenreModel[]
     director: DirectorModel

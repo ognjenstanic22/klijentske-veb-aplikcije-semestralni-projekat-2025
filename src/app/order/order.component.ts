@@ -19,20 +19,35 @@ import { UserService } from '../../services/user.service';
 })
 export class OrderComponent {
   public movie: MovieModel | null = null
-  public allGenres: MovieGenreModel[] | null = null
+  public selectedTicketCount: number = 1
+  public moviePrice: number = 1
 
-  public constructor(private route: ActivatedRoute, public utils: UtilsService){
-    route.params.subscribe(params=>{
+  public constructor(private route: ActivatedRoute, public utils: UtilsService) {
+    route.params.subscribe(params => {
       MovieService.getMoviesByShortUrl(params['url'])
         .then(rsp => {
           this.movie = rsp.data
-          this.allGenres = rsp.data.movieGenres
+          this.moviePrice = utils.generateMoviePrice(rsp.data.runTime)
         })
     })
   }
 
-  public doOrder(){
-    const result = UserService.createOrder
+  public doOrder() {
+    const result = UserService.createOrder({
+      shortUrl: this.movie!.shortUrl,
+      title: this.movie!.title,
+      shortDescription: this.movie!.shortDescription,
+      runTime: this.movie!.runTime,
+      movieGenres: this.movie!.movieGenres,
+      director: this.movie!.director,
+      movieActors: this.movie!.movieActors,
+      createdAt: this.movie!.createdAt,
+      startDate: this.movie!.startDate,
+      count: this.selectedTicketCount,
+      pricePerItem: this.moviePrice,
+      status: 'rezervisano',
+      rating: null
+    })
   }
 
 }
