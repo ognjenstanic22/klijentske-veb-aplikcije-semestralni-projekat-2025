@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MovieModel } from '../../models/movie.model';
 import { MovieGenreModel } from '../../models/movieGenre.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UtilsService } from '../../services/utils.service';
 import { MovieService } from '../../services/movie.service';
 import { MatCardModule } from '@angular/material/card';
@@ -22,7 +22,7 @@ export class OrderComponent {
   public selectedTicketCount: number = 1
   public moviePrice: number = 1
 
-  public constructor(private route: ActivatedRoute, public utils: UtilsService) {
+  public constructor(private route: ActivatedRoute, public utils: UtilsService, private router: Router) {
     route.params.subscribe(params => {
       MovieService.getMoviesByShortUrl(params['url'])
         .then(rsp => {
@@ -48,6 +48,8 @@ export class OrderComponent {
       status: 'rezervisano',
       rating: null
     })
+
+    result ? this.router.navigate(['/user']) : alert('Desila se greska prilikom rezervisanja!')
   }
 
 }
