@@ -24,6 +24,7 @@ body {
 
 .poster{
     max-height: 250px;
+    max-width: 350px;
 }
 
 .example-card {

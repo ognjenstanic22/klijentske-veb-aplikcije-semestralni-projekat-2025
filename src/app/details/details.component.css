@@ -1,14 +1,15 @@
-.movie-card {
+.details-wrapper{
     display: flex;
-    flex-wrap: wrap;
-    width: 40%;
+    justify-content: center;
+    margin: 15px
+}
+
+.movie-card{
+    max-width: 60%;
     margin: 20px;
 }
 
-.movie-content {
+.header{
     display: flex;
-    justify-content: center;
-    gap: 10px;
     flex-direction: row;
-    flex-wrap: wrap;
 }

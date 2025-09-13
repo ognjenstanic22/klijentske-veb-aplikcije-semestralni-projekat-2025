@@ -9,6 +9,8 @@ import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import { MovieGenreModel } from '../../models/movieGenre.model';
+import { MovieActorsModel } from '../../models/movieActors.model';
+import { DirectorModel } from '../../models/director.model';
 
 @Component({
   selector: 'app-details',
@@ -18,14 +20,12 @@ import { MovieGenreModel } from '../../models/movieGenre.model';
 })
 export class DetailsComponent {
   public movie: MovieModel | null = null
-  public allGenres: MovieGenreModel[] | null = null
 
   public constructor(private route: ActivatedRoute, public utils: UtilsService){
     route.params.subscribe(params=>{
       MovieService.getMoviesByShortUrl(params['url'])
         .then(rsp => {
           this.movie = rsp.data
-          this.allGenres = rsp.data.movieGenres
         })
     })
   }

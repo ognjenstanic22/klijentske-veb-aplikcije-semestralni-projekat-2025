@@ -12,8 +12,9 @@
         <img mat-card-image class="poster" [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
         <mat-card-content>
             <h3>{{movie.title}}</h3>
-            <p>Pocetak projekcije: {{movie.startDate}}</p>
-            <!-- <p> {{utils.formatDate(movie.createdAt)}}</p>  -->
+            <p>Pocetak projekcije: {{utils.formatDate(movie.startDate)}}</p>
+            <p>Kratak opis: </p>
+            <p class="text-wrap">{{movie.shortDescription}}</p>
         </mat-card-content>
         <mat-card-actions>
             <a mat-button [routerLink]="['/details/', movie.shortUrl]">

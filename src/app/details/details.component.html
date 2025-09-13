@@ -1,27 +1,63 @@
-<div class="wrapper" *ngIf="movie">
-    <div class="movie-content">
-        <mat-card class="movie-card">
-            <img [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
-        </mat-card>
-        <mat-card class="movie-card" appearance="outlined">
-            <mat-card-content>
+<div class="details-wrapper" *ngIf="movie">
+    <mat-card class="movie-card" appearance="outlined">
+        <div class="header">
+            <mat-card-content class=>
+                <img class="poster" [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
+            </mat-card-content>
+            <mat-card-content class="title">
                 <h1 class="text-wrap">{{movie.title}}</h1>
                 <mat-list role="list">
-                    <mat-list-item>Žanrovi:
-                        <span *ngFor="let genre of utils.getGenres(allGenres); let isLast = last">
+                    <mat-list-item>
+                        <h3>Zanrovi:</h3>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span *ngFor="let genre of utils.getGenres(movie.movieGenres); let isLast = last">
                             {{genre}}
                             <span *ngIf="!isLast">, </span>
                         </span>
                     </mat-list-item>
+                    <mat-list-item>
+                        <h3>Reziser:</h3>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span class="text-wrap">{{utils.getDirector(movie.director)}}</span>
+                    </mat-list-item>
                 </mat-list>
             </mat-card-content>
-            <mat-card-actions>
-                <a mat-button [routerLink]="['/details/'+movie.shortUrl+'/order']">
-                    <i class="fa-solid fa-cart-shopping"></i> Idi na rezervaciju
-                </a>
-            </mat-card-actions>
-        </mat-card>
-    </div>
+        </div>
+        <mat-card-content>
+            <mat-list-item>
+                <h3>Glumci:</h3>
+            </mat-list-item>
+            <mat-list-item>
+                <span class="text-wrap" *ngFor="let actors of utils.getActors(movie.movieActors); let isLast = last">
+                    {{actors}}
+                    <span *ngIf="!isLast">, </span>
+                </span>
+            </mat-list-item>
+            <mat-list-item>
+                        <h3>Duzina trajanja:</h3>
+            </mat-list-item>
+            <mat-list-item>
+                <span>{{movie.runTime}} minuta</span>
+            </mat-list-item>
+            <mat-list-item>
+                        <h3>Pocetak projekcije:</h3>
+            </mat-list-item>
+            <mat-list-item>
+                <span>{{utils.formatDate(movie.startDate)}}</span>
+            </mat-list-item>
+        </mat-card-content>
+        <mat-card-content>
+            <h3>Opis: </h3>
+            <pre class="text-wrap">{{movie.description}}</pre>
+        </mat-card-content>
+        <mat-card-actions>
+            <a mat-button [routerLink]="['/details/'+movie.shortUrl+'/order']">
+                <i class="fa-solid fa-cart-shopping"></i> Idi na rezervaciju
+            </a>
+        </mat-card-actions>
+    </mat-card>
 </div>
 
 <app-loading *ngIf="!movie" />
