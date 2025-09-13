@@ -3,6 +3,7 @@ import { MovieActorsModel } from "./movieActors.model"
 import { MovieGenreModel } from "./movieGenre.model"
 
 export interface OrderModel {
+    id: number
     shortUrl: string
     title: string
     shortDescription: string

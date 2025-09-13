@@ -17,7 +17,7 @@ import { OrderModel } from '../../models/order.model';
 })
 export class UserComponent {
 
-  public displayedColumns: string[] = ['title', 'runTime', 'director.name', 'count', 'price', 'status', 'total', 'actions'];
+  public displayedColumns: string[] = ['title', 'runTime', 'director.name', 'count', 'price', 'status', 'rating','total', 'actions'];
   public user: UserModel | null = null
 
   constructor(private router: Router, public utils: UtilsService) {
@@ -44,13 +44,19 @@ export class UserComponent {
   }
 
   public doPay(order: OrderModel) {
-    if(UserService.changeOrderStatus('gledano', order.shortUrl)){
+    if(UserService.changeOrderStatus('gledano', order.id)){
       this.user = UserService.getActiveUser()
     }
   }
 
   public doCancel(order: OrderModel) {
-    if(UserService.changeOrderStatus('otkazano', order.shortUrl)){
+    if(UserService.changeOrderStatus('otkazano', order.id)){
+      this.user = UserService.getActiveUser()
+    }
+  }
+
+  public doRating(order: OrderModel, r:boolean) {
+    if(UserService.changeRating(r, order.id)){
       this.user = UserService.getActiveUser()
     }
   }

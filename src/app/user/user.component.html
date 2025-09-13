@@ -52,6 +52,22 @@
                     <td mat-cell *matCellDef="let element"> {{element.status}} </td>
                 </ng-container>
 
+                <ng-container matColumnDef="rating">
+                    <th mat-header-cell *matHeaderCellDef> Ocena </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element.rating == null">
+                            Nema Ocene
+                        </div>
+                        <div *ngIf="element.rating == true">
+                            DOBAR
+                        </div>
+                        <div *ngIf="element.rating == false">
+                            LOS
+                        </div>
+                    </td>
+                </ng-container>
+
+
                 <ng-container matColumnDef="total">
                     <th mat-header-cell *matHeaderCellDef> Total </th>
                     <td mat-cell *matCellDef="let element">
@@ -60,7 +76,7 @@
 
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef>
-                         Actions
+                        Actions
                     </th>
                     <td mat-cell *matCellDef="let element" class="actions">
                         <a mat-button [routerLink]="['/details/'+element.shortUrl]">
@@ -74,9 +90,12 @@
                                 <i class="fa-solid fa-ban"></i> Otkazi
                             </button>
                         </div>
-                        <div *ngIf="element.status == 'gledano'">
-                            <button type="button" mat-button>
-                                Oceni
+                        <div *ngIf="element.status == 'gledano' && element.rating == null">
+                            <button type="button" mat-button (click)="doRating(element, true)">
+                                <i class="fa-solid fa-thumbs-up"></i> Dobar
+                            </button>
+                            <button type="button" mat-button (click)="doRating(element, false)">
+                                <i class="fa-solid fa-thumbs-down"></i> Los
                             </button>
                         </div>
                     </td>

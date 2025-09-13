@@ -35,6 +35,7 @@ export class OrderComponent {
 
   public doOrder() {
     const result = UserService.createOrder({
+      id: new Date().getTime(),
       shortUrl: this.movie!.shortUrl,
       title: this.movie!.title,
       shortDescription: this.movie!.shortDescription,
