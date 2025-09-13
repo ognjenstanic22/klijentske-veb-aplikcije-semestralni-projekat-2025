@@ -43,11 +43,11 @@ export class UserService {
         return null
     }
 
-    static createOrder(order: OrderModel): boolean{
+    static createOrder(order: OrderModel): boolean {
 
         const arr = this.retrieveUsers()
-        for(let user of arr){
-            if(user.email == localStorage.getItem('active')){
+        for (let user of arr) {
+            if (user.email == localStorage.getItem('active')) {
                 user.orders.push(order)
                 localStorage.setItem('users', JSON.stringify(arr))
                 return true
@@ -57,11 +57,30 @@ export class UserService {
         return false
     }
 
-    static changePassword(newPassword: string): boolean{
+    static changeOrderStatus(status: 'rezervisano' | 'gledano' | 'otkazano', shortUrl: string) {
+        const active = this.getActiveUser()
+        if (active) {
+            const arr = this.retrieveUsers()
+            for (let user of arr) {
+                if (user.email == active.email) {
+                    for (let order of user.orders) {
+                        if (order.shortUrl == shortUrl) {
+                            order.status = status
+                        }
+                    }
+                    localStorage.setItem('users', JSON.stringify(arr))
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    static changePassword(newPassword: string): boolean {
 
         const arr = this.retrieveUsers()
-        for(let user of arr){
-            if(user.email == localStorage.getItem('active')){
+        for (let user of arr) {
+            if (user.email == localStorage.getItem('active')) {
                 user.password = newPassword
                 localStorage.setItem('users', JSON.stringify(arr))
                 return true

@@ -1,22 +1,23 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import {  NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { UserModel } from '../../models/user.model';
 import { MatTableModule } from '@angular/material/table';
 import { UtilsService } from '../../services/utils.service';
+import { OrderModel } from '../../models/order.model';
 
 @Component({
   selector: 'app-user',
-  imports: [NgIf, NgFor, MatButtonModule, MatCardModule, MatTableModule],
+  imports: [NgIf, MatButtonModule, MatCardModule, MatTableModule, RouterLink],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
 export class UserComponent {
 
-  public displayedColumns: string[] = ['title', 'runTime', 'director.name', 'price', 'total', 'actions'];
+  public displayedColumns: string[] = ['title', 'runTime', 'director.name', 'count', 'price', 'status', 'total', 'actions'];
   public user: UserModel | null = null
 
   constructor(private router: Router, public utils: UtilsService) {
@@ -40,6 +41,18 @@ export class UserComponent {
 
     alert(UserService.changePassword(newPassword) ? 'Lozinka uspešno promenjena' : 'Lozinka nije promenjena')
 
+  }
+
+  public doPay(order: OrderModel) {
+    if(UserService.changeOrderStatus('gledano', order.shortUrl)){
+      this.user = UserService.getActiveUser()
+    }
+  }
+
+  public doCancel(order: OrderModel) {
+    if(UserService.changeOrderStatus('otkazano', order.shortUrl)){
+      this.user = UserService.getActiveUser()
+    }
   }
 
 }
