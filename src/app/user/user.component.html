@@ -13,9 +13,12 @@
         </mat-card-actions>
     </mat-card>
 
-    <div *ngIf="user.orders.length == 0">
-        <p>Nema rezervacija</p>
-    </div>
+    <mat-card appearance="outlined" *ngIf="user.orders.length == 0" class="no-order">
+        <mat-card-content>
+            <h1>You have no orders yet</h1>
+            <p>To place an order visit <a routerLink="/search"class="cyan">search page</a>.</p>
+        </mat-card-content>
+    </mat-card>
 
     <div *ngIf="user.orders.length > 0">
         <div class="wrapper" *ngIf="user.orders">
