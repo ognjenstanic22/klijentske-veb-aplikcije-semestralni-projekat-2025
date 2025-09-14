@@ -33,7 +33,7 @@
         </mat-form-field>
         <mat-form-field class="full-width">
             <mat-label>Odaberite omiljen žanr</mat-label>
-            <mat-select [disabled]="!genreList" [(ngModel)]="favouriteGenre">
+            <mat-select [(ngModel)]="favouriteGenre">
                 <mat-option *ngFor="let genre of genreList" [value]="genre.name">
                     {{genre.name}}
                 </mat-option>
