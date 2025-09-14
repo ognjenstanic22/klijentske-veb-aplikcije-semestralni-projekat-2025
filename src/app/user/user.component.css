@@ -19,3 +19,8 @@
     margin-right: auto;
     text-align: center;
 }
+
+.no-border{
+    margin: 0;
+    padding: 0;
+}

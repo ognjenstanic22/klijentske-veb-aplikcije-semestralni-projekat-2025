@@ -9,6 +9,11 @@ export class UserService {
                 {
                     email: 'user@example.com',
                     password: 'user123',
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    phone: '+38161123456',
+                    address: 'Neka Adresa 28, Zemun',
+                    favouriteGenre: 'Misterija',
                     orders: []
                 }
             ]
@@ -17,6 +22,19 @@ export class UserService {
         }
 
         return JSON.parse(localStorage.getItem('users')!)
+    }
+
+    static createUser(model: UserModel) {
+        const users = this.retrieveUsers();
+
+        for (let u of users) {
+            if (u.email === model.email)
+                return false
+        }
+
+        users.push(model)
+        localStorage.setItem('users', JSON.stringify(users))
+        return true
     }
 
     static login(email: string, password: string): boolean {

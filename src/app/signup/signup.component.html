@@ -31,11 +31,12 @@
             <mat-label>Ponovite lozinku</mat-label>
             <input type="password" matInput placeholder="Ponovite vašu lozinku..." [(ngModel)]="repeatPassword">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="full-width">
             <mat-label>Odaberite omiljen žanr</mat-label>
-            <mat-select>
-                <mat-option value="one">First option</mat-option>
-                <mat-option value="two">Second option</mat-option>
+            <mat-select [disabled]="!genreList" [(ngModel)]="favouriteGenre">
+                <mat-option *ngFor="let genre of genreList" [value]="genre.name">
+                    {{genre.name}}
+                </mat-option>
             </mat-select>
         </mat-form-field>
     </mat-card-content>
