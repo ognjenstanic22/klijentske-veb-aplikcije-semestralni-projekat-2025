@@ -1,9 +1,9 @@
 <div class="wrapper">
     <div class="movie-content" *ngIf="movie">
-        <mat-card class="movie-card">
-            <img [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
+        <mat-card class="movie-card-left">
+            <img class="movie-card-poster" [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
         </mat-card>
-        <mat-card class="movie-card" appearance="outlined">
+        <mat-card class="movie-card-right" appearance="outlined">
             <mat-card-content>
                 <h1>Nova rezervacija:</h1>
                 <h1 class="text-wrap">{{movie.title}}</h1>
@@ -11,8 +11,29 @@
                     <mat-label>Ime filma</mat-label>
                     <input type="text" matInput [value]="movie.title" disabled>
                 </mat-form-field>
+                <mat-card-content class="desc">
+                    <mat-label>Opis</mat-label>
+                    <pre class="text-wrap">{{movie.shortDescription}}</pre>
+                    <p>Glumci: </p>
+                    <span class="text-wrap"
+                        *ngFor="let actors of utils.getActors(movie.movieActors); let isLast = last">
+                        {{actors}}
+                        <span *ngIf="!isLast">, </span>
+                    </span>
+                    <p>Reziser: </p>
+                    <span class="text-wrap">{{utils.getDirector(movie.director)}}</span>
+                    <p>Zanrovi: </p>
+                    <span *ngFor="let genre of utils.getGenres(movie.movieGenres); let isLast = last">
+                        {{genre}}
+                        <span *ngIf="!isLast">, </span>
+                    </span>
+                </mat-card-content>
                 <mat-form-field class="full-width">
                     <mat-label>Vreme projekcije</mat-label>
+                    <input type="text" matInput [value]="utils.formatDate(movie.createdAt)" disabled>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Datum izlaska</mat-label>
                     <input type="text" matInput [value]="utils.formatDate(movie.startDate)" disabled>
                 </mat-form-field>
                 <mat-form-field class="full-width">

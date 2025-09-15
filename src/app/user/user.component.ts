@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
-import {  NgIf } from '@angular/common';
+import {  NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { UserModel } from '../../models/user.model';
 import { MatTableModule } from '@angular/material/table';
 import { UtilsService } from '../../services/utils.service';
 import { OrderModel } from '../../models/order.model';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
-  imports: [NgIf, MatButtonModule, MatCardModule, MatTableModule, RouterLink],
+  imports: [NgIf, MatButtonModule, MatCardModule, MatTableModule, RouterLink, MatFormFieldModule, FormsModule, NgFor, NgIf],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })

@@ -1,7 +1,7 @@
 <div class="details-wrapper" *ngIf="movie">
     <mat-card class="movie-card" appearance="outlined">
         <div class="header">
-            <mat-card-content class=>
+            <mat-card-content>
                 <img class="poster" [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
             </mat-card-content>
             <mat-card-content class="title">
@@ -26,23 +26,24 @@
             </mat-card-content>
         </div>
         <mat-card-content>
+                <mat-list-item>
+                    <h3>Glumci:</h3>
+                </mat-list-item>
+                <mat-list-item class="mobile">
+                    <span class="text-wrap"
+                        *ngFor="let actors of utils.getActors(movie.movieActors); let isLast = last">
+                        {{actors}}
+                        <span *ngIf="!isLast">, </span>
+                    </span>
+                </mat-list-item>
             <mat-list-item>
-                <h3>Glumci:</h3>
-            </mat-list-item>
-            <mat-list-item>
-                <span class="text-wrap" *ngFor="let actors of utils.getActors(movie.movieActors); let isLast = last">
-                    {{actors}}
-                    <span *ngIf="!isLast">, </span>
-                </span>
-            </mat-list-item>
-            <mat-list-item>
-                        <h3>Duzina trajanja:</h3>
+                <h3>Duzina trajanja:</h3>
             </mat-list-item>
             <mat-list-item>
                 <span>{{movie.runTime}} minuta</span>
             </mat-list-item>
             <mat-list-item>
-                        <h3>Pocetak projekcije:</h3>
+                <h3>Pocetak projekcije:</h3>
             </mat-list-item>
             <mat-list-item>
                 <span>{{utils.formatDate(movie.startDate)}}</span>

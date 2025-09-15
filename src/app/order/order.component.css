@@ -1,8 +1,23 @@
-.movie-card {
+.movie-card-right {
     display: flex;
     flex-wrap: wrap;
     width: 40%;
     margin: 20px;
+}
+
+.movie-card-left {
+    display: flex;
+    flex-wrap: wrap;
+    width: 40%;
+    margin: 20px;
+}
+
+.movie-card-poster {
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;
+    height: 98%;
+    margin: 10px;
 }
 
 .movie-content {
@@ -11,4 +26,8 @@
     gap: 10px;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+.desc{
+    margin-bottom: 15px;
 }

@@ -5,7 +5,7 @@
 }
 
 .actions {
-    min-width: 300px;
+    min-width: 200px;
     height: 52px;
     display: flex;
     flex-direction: row;
@@ -23,4 +23,35 @@
 .no-border{
     margin: 0;
     padding: 0;
+}
+
+.movie-card{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    min-width: none;
+    height: 375px;
+    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.left{
+    margin-bottom: 15px;
+    max-width: 45%;
+}
+
+.middle{
+    margin-bottom: 15px;
+    max-width: 33%;
+}
+
+.right{
+    margin-top: 40px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 33%;
 }

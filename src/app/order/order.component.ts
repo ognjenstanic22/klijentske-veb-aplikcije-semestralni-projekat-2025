@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { MovieModel } from '../../models/movie.model';
-import { MovieGenreModel } from '../../models/movieGenre.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UtilsService } from '../../services/utils.service';
 import { MovieService } from '../../services/movie.service';
 import { MatCardModule } from '@angular/material/card';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -14,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-order',
-  imports: [MatCardModule, NgIf, MatInputModule, MatButtonModule, MatSelectModule, FormsModule],
+  imports: [MatCardModule, NgIf, MatInputModule, MatButtonModule, MatSelectModule, FormsModule, NgFor, NgIf],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
