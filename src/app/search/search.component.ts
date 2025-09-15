@@ -35,9 +35,14 @@ import { DirectorModel } from '../../models/director.model';
 export class SearchComponent {
   displayedColumns: string[] = ['movieId', 'title', 'runTime', 'director.name', 'price', 'actions'];
   allData: MovieModel[] | null = null
+  dataSource: MovieModel[] | null = null
   directors: DirectorModel[] = []
   selectedDirector: string | null = ''
-  dataSource: MovieModel[] | null = null
+  runtimeList: number[] | null = null
+  selectedRuntime: number | null = null
+  userInput: string = ''
+  priceList: number[] | null = null
+  selectedPrice: number | null = null
 
   public constructor(public utils: UtilsService) {
     MovieService.getMovies()
@@ -45,27 +50,47 @@ export class SearchComponent {
         this.allData = rsp.data
         this.dataSource = rsp.data
         this.directors = rsp.data.map((obj: MovieModel) => obj.director)
+        this.runtimeList = rsp.data.map((obj: MovieModel) => obj.runTime)
+        this.priceList = rsp.data.map((obj: MovieModel) => utils.generateMoviePrice(obj.runTime))
       })
   }
 
   public doSearch(e: any) {
-    const input = e.target.value
-
     if (this.allData == null) return
 
-    if (input == '') {
+    if (this.userInput == '') {
       this.dataSource = this.allData
       return
     }
 
     this.dataSource = this.allData.filter(obj => {
-      return obj.title.includes(input) ||
-        obj.runTime.toString().includes(input) ||
-        obj.director.name.includes(input)
+      return obj.title.includes(this.userInput) ||
+        obj.runTime.toString().includes(this.userInput) ||
+        obj.director.name.includes(this.userInput)
     })
   }
 
-  public doSelectDirector(e: any){
-    this.dataSource = this.allData!.filter( obj => obj.director.name == this.selectedDirector)
+  public doReset() {
+    this.userInput = ''
+    this.selectedDirector = null
+    this.selectedRuntime = null
+    this.selectedPrice = null
+    this.dataSource = this.allData
+  }
+
+  public doFilterChain(){
+     this.dataSource = this.allData!
+     .filter(obj => {
+      if(this.selectedDirector == null) return true
+      return obj.director.name === this.selectedDirector
+     })
+     .filter(obj => {
+      if(this.selectedRuntime == null) return true
+      return obj.runTime === this.selectedRuntime
+     })
+     .filter(obj => {
+      if(this.selectedPrice == null) return true
+      return this.utils.generateMoviePrice(obj.runTime) === this.selectedPrice
+     })
   }
 }

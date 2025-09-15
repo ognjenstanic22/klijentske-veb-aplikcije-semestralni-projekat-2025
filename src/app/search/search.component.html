@@ -4,17 +4,38 @@
         <mat-card-content>
             <mat-form-field>
                 <mat-label>Pretraga</mat-label>
-                <input type="text" matInput placeholder="Unesite pojam za pretragu..." (keyup)="doSearch($event)">
+                <input type="text" matInput placeholder="Unesite pojam za pretragu..." (keyup)="doSearch($event)" [(ngModel)]="userInput">
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Odaberite režisera</mat-label>
-                <mat-select (selectionChange)="doSelectDirector($event)" [(ngModel)]="selectedDirector">
+                <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedDirector">
                     <mat-option *ngFor="let dir of directors" [value]="dir.name">
                         {{dir.name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-form-field>
+                <mat-label>Odaberite trajanje filma</mat-label>
+                <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedRuntime">
+                    <mat-option *ngFor="let runtime of runtimeList" [value]="runtime">
+                        {{runtime}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Odaberite cenu</mat-label>
+                <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedPrice">
+                    <mat-option *ngFor="let price of priceList" [value]="price">
+                        {{price}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)="doReset()">
+                <i class="fa-solid fa-ban"></i> Ukloni sve filtere pretrage
+            </button>
+        </mat-card-actions>
     </mat-card>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

@@ -27,6 +27,10 @@ export class MovieService{
         return client.get(`/movie/short/${url}`)
     }
 
+    static async getMoviesRuntimeUnique(){
+        return client.get(`/movie/runtime`)
+    }
+
     static async getMovieGenres() {
         return client.get(`/genre`)
     }

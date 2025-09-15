@@ -19,7 +19,7 @@ export class UtilsService {
   }
 
   public generateMoviePrice(moviePrice: number) {
-    return moviePrice * 10;
+    return moviePrice * 8;
   }
 
   public getDirector(directorObj: DirectorModel | null): string{
