@@ -9,6 +9,8 @@ import { UtilsService } from '../../services/utils.service';
 import { OrderModel } from '../../models/order.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-user',
@@ -18,16 +20,22 @@ import { FormsModule } from '@angular/forms';
     MatCardModule,
     RouterLink,
     MatFormFieldModule,
+    MatInputModule,
     FormsModule,
-    NgFor
+    NgFor,
+    MatAccordion,
+    MatExpansionModule
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
 export class UserComponent {
 
-  public displayedColumns: string[] = ['title', 'runTime', 'director.name', 'count', 'price', 'status', 'rating', 'total', 'actions'];
   public user: UserModel | null = null
+
+  public oldPasswordValue = ''
+  public newPasswrodValue = ''
+  public repeatPasswordValue = ''
 
   constructor(private router: Router, public utils: UtilsService) {
     if (!UserService.getActiveUser()) {
@@ -41,15 +49,29 @@ export class UserComponent {
   }
 
   public doChangePassword() {
-    const newPassword = prompt('Unesite novu lozinku')
 
-    if (newPassword == '' || newPassword == null) {
-      alert('Lozinka ne može biti prazna')
+    if (this.newPasswrodValue == '' || this.oldPasswordValue == '' || this.repeatPasswordValue == '') {
+      alert('Lozinke ne mogu biti prazne')
       return
     }
 
-    alert(UserService.changePassword(newPassword) ? 'Lozinka uspešno promenjena' : 'Lozinka nije promenjena')
+    if (this.newPasswrodValue !== this.repeatPasswordValue) {
+      alert('Lozinke se ne poklapaju')
+      return
+    }
 
+    if (this.oldPasswordValue !== this.user?.password) {
+      alert('Stara lozinka nije ispravna')
+      return
+    }
+
+    alert(UserService.changePassword(this.newPasswrodValue) ?
+      'Lozinka uspešno promenjena' : 'Lozinka nije promenjena'
+    )
+
+    this.oldPasswordValue = ''
+    this.newPasswrodValue = ''
+    this.repeatPasswordValue = ''
   }
 
   public doPay(order: OrderModel) {
@@ -60,8 +82,8 @@ export class UserComponent {
 
   public doCancel(order: OrderModel) {
     if (UserService.changeOrderStatus('otkazano', order.id)) {
-         this.user = UserService.getActiveUser()
-     }
+      this.user = UserService.getActiveUser()
+    }
   }
 
   public doRating(order: OrderModel, r: boolean) {
