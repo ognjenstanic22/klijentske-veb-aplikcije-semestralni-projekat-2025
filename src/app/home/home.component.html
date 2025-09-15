@@ -11,9 +11,10 @@
     <mat-card class="example-card" appearance="outlined" *ngFor="let movie of movies | slice: 0 : 12">
         <img mat-card-image class="poster" [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
         <mat-card-content>
-            <h3>{{movie.title}}</h3>
-            <p>Pocetak projekcije: {{utils.formatDate(movie.startDate)}}</p>
-            <p>Kratak opis: </p>
+            <h3><i class="fa-solid fa-clock-rotate-left"></i> {{movie.title}}</h3>
+            <p><i class="fa-solid fa-clock-rotate-left"></i> Izaslo: {{utils.formatDate(movie.startDate)}}</p>
+            <p><i class="fa-solid fa-clock-rotate-left"></i> Pocetak projekcije: {{utils.formatDate(movie.createdAt)}}</p>
+            <p><i class="fa-solid fa-clock-rotate-left"></i> Kratak opis: </p>
             <p class="text-wrap">{{movie.shortDescription}}</p>
         </mat-card-content>
         <mat-card-actions>
