@@ -9,11 +9,11 @@ import { UtilsService } from '../../services/utils.service';
 import { OrderModel } from '../../models/order.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
-import { MatGridListModule } from '@angular/material/grid-list';
 
 @Component({
   selector: 'app-user',
-  imports: [NgIf,
+  imports: [
+    NgIf,
     MatButtonModule,
     MatCardModule,
     RouterLink,
@@ -60,8 +60,8 @@ export class UserComponent {
 
   public doCancel(order: OrderModel) {
     if (UserService.changeOrderStatus('otkazano', order.id)) {
-      this.user = UserService.getActiveUser()
-    }
+         this.user = UserService.getActiveUser()
+     }
   }
 
   public doRating(order: OrderModel, r: boolean) {

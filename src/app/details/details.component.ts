@@ -8,11 +8,10 @@ import { LoadingComponent } from "../loading/loading.component";
 import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-details',
-  imports: [NgIf, NgFor, LoadingComponent, MatCardModule, MatButtonModule, MatListModule, RouterLink, MatIconModule],
+  imports: [NgIf, NgFor, LoadingComponent, MatCardModule, MatButtonModule, MatListModule, RouterLink],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })

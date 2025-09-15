@@ -5,8 +5,8 @@
             <img mat-card-avatar class="example-header-image" [src]="['https://ui-avatars.com/api/?name='+user.email]">
             <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
             <mat-card-subtitle>
-                <p class="no-border">Broj rezervacija:{{user.orders.length}}</p>
-                <p class="no-border">Omiljen žanr:{{user.orders.length}}</p>
+                <p class="no-border">Broj rezervacija: {{user.orders.length}}</p>
+                <p class="no-border">Omiljen žanr: {{user.favouriteGenre}}</p>
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
@@ -26,70 +26,73 @@
     <div *ngIf="user.orders.length > 0">
         <div class="wrapper" *ngIf="user.orders">
             <h1>Lista rezervacija</h1>
-            <mat-card *ngFor="let o of user.orders" class="movie-card" appearance="outlined">
-                <mat-card-content class="left">
-                    <h1 class="text-wrap">{{o.title}}</h1>
-                    <mat-label>Opis</mat-label>
-                    <pre class="text-wrap">{{o.shortDescription}}</pre>
-                    <p>Glumci: </p>
-                    <span class="text-wrap" *ngFor="let actors of utils.getActors(o.movieActors); let isLast = last">
-                        {{actors}}
-                        <span *ngIf="!isLast">, </span>
-                    </span>
-                    <mat-card-actions>
-                        <a mat-button [routerLink]="['/details/'+o.shortUrl]">
-                            <i class="fa-solid fa-cart-shopping"></i> Detalji
-                        </a>
-                        <div *ngIf="o.status == 'rezervisano'">
-                            <button type="button" mat-button (click)="doPay(o)">
-                                <i class="fa-solid fa-cart-shopping"></i> Plati
-                            </button>
-                            <button type="button" mat-button (click)="doCancel(o)">
-                                <i class="fa-solid fa-ban"></i> Otkazi
-                            </button>
+            <div *ngFor="let o of user.orders">
+                <mat-card *ngIf="o.status != 'otkazano'" class="movie-card" appearance="outlined">
+                    <mat-card-content class="left">
+                        <h1 class="text-wrap">{{o.title}}</h1>
+                        <mat-label>Opis</mat-label>
+                        <pre class="text-wrap">{{o.shortDescription}}</pre>
+                        <p>Glumci: </p>
+                        <span class="text-wrap"
+                            *ngFor="let actors of utils.getActors(o.movieActors); let isLast = last">
+                            {{actors}}
+                            <span *ngIf="!isLast">, </span>
+                        </span>
+                        <mat-card-actions>
+                            <a mat-button [routerLink]="['/details/'+o.shortUrl]">
+                                <i class="fa-solid fa-cart-shopping"></i> Detalji
+                            </a>
+                            <div *ngIf="o.status == 'rezervisano'">
+                                <button type="button" mat-button (click)="doPay(o)">
+                                    <i class="fa-solid fa-cart-shopping"></i> Plati
+                                </button>
+                                <button type="button" mat-button (click)="doCancel(o)">
+                                    <i class="fa-solid fa-ban"></i> Otkazi
+                                </button>
+                            </div>
+                            <div *ngIf="o.status == 'gledano' && o.rating == null">
+                                <button type="button" mat-button (click)="doRating(o, true)">
+                                    <i class="fa-solid fa-thumbs-up"></i> Dobar
+                                </button>
+                                <button type="button" mat-button (click)="doRating(o, false)">
+                                    <i class="fa-solid fa-thumbs-down"></i> Los
+                                </button>
+                            </div>
+                        </mat-card-actions>
+                    </mat-card-content>
+                    <mat-card-content class="middle">
+                        <p>Reziser: </p>
+                        <span class="text-wrap">{{utils.getDirector(o.director)}}</span>
+                        <p>Zanrovi: </p>
+                        <span *ngFor="let genre of utils.getGenres(o.movieGenres); let isLast = last">
+                            {{genre}}
+                            <span *ngIf="!isLast">, </span>
+                        </span>
+                        <mat-label>Vreme projekcije</mat-label>
+                        <pre class="text-wrap">{{utils.formatDate(o.createdAt)}}</pre>
+                        <mat-label>Datum izlaska</mat-label>
+                        <pre class="text-wrap">{{utils.formatDate(o.startDate)}}</pre>
+                        <mat-label>Broj karata</mat-label>
+                        <pre class="text-wrap">{{o.count}}</pre>
+                        <mat-label>Cena karata</mat-label>
+                        <pre class="text-wrap">{{o.pricePerItem*o.count}}</pre>
+                    </mat-card-content>
+                    <mat-card-content class="right">
+                        <mat-label>Ocena: </mat-label>
+                        <div *ngIf="o.rating == null">
+                            Nema Ocene
                         </div>
-                        <div *ngIf="o.status == 'gledano' && o.rating == null">
-                            <button type="button" mat-button (click)="doRating(o, true)">
-                                <i class="fa-solid fa-thumbs-up"></i> Dobar
-                            </button>
-                            <button type="button" mat-button (click)="doRating(o, false)">
-                                <i class="fa-solid fa-thumbs-down"></i> Los
-                            </button>
+                        <div *ngIf="o.rating == true">
+                            DOBAR
                         </div>
-                    </mat-card-actions>
-                </mat-card-content>
-                <mat-card-content class="middle">
-                    <p>Reziser: </p>
-                    <span class="text-wrap">{{utils.getDirector(o.director)}}</span>
-                    <p>Zanrovi: </p>
-                    <span *ngFor="let genre of utils.getGenres(o.movieGenres); let isLast = last">
-                        {{genre}}
-                        <span *ngIf="!isLast">, </span>
-                    </span>
-                    <mat-label>Vreme projekcije</mat-label>
-                    <pre class="text-wrap">{{utils.formatDate(o.createdAt)}}</pre>
-                    <mat-label>Datum izlaska</mat-label>
-                    <pre class="text-wrap">{{utils.formatDate(o.startDate)}}</pre>
-                    <mat-label>Broj karata</mat-label>
-                    <pre class="text-wrap">{{o.count}}</pre>
-                    <mat-label>Cena karata</mat-label>
-                    <pre class="text-wrap">{{o.pricePerItem*o.count}}</pre>
-                </mat-card-content>
-                <mat-card-content class="right">
-                    <mat-label>Ocena: </mat-label>
-                    <div *ngIf="o.rating == null">
-                        Nema Ocene
-                    </div>
-                    <div *ngIf="o.rating == true">
-                        DOBAR
-                    </div>
-                    <div *ngIf="o.rating == false">
-                        LOS
-                    </div>
-                    <mat-label>Status: </mat-label>
-                    <div>{{o.status}}</div>
-                </mat-card-content>
-            </mat-card>
+                        <div *ngIf="o.rating == false">
+                            LOS
+                        </div>
+                        <mat-label>Status: </mat-label>
+                        <div>{{o.status}}</div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
     </div>
 </div>
