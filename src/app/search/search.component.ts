@@ -36,61 +36,55 @@ export class SearchComponent {
   displayedColumns: string[] = ['movieId', 'title', 'runTime', 'director.name', 'price', 'actions'];
   allData: MovieModel[] | null = null
   dataSource: MovieModel[] | null = null
-  directors: DirectorModel[] = []
+  directors: string[] = []
   selectedDirector: string | null = ''
   runtimeList: number[] | null = null
   selectedRuntime: number | null = null
   userInput: string = ''
-  priceList: number[] | null = null
-  selectedPrice: number | null = null
 
   public constructor(public utils: UtilsService) {
     MovieService.getMovies()
       .then(rsp => {
         this.allData = rsp.data
         this.dataSource = rsp.data
-        this.directors = rsp.data.map((obj: MovieModel) => obj.director)
-        this.runtimeList = rsp.data.map((obj: MovieModel) => obj.runTime)
-        this.priceList = rsp.data.map((obj: MovieModel) => utils.generateMoviePrice(obj.runTime))
+        this.generateSearchCriteria(rsp.data)
       })
   }
 
-  public doSearch(e: any) {
-    if (this.allData == null) return
-
-    if (this.userInput == '') {
-      this.dataSource = this.allData
-      return
-    }
-
-    this.dataSource = this.allData.filter(obj => {
-      return obj.title.includes(this.userInput) ||
-        obj.runTime.toString().includes(this.userInput) ||
-        obj.director.name.includes(this.userInput)
-    })
+  public generateSearchCriteria(source: MovieModel[]) {
+    this.directors = source.map((obj: MovieModel) => obj.director.name)
+      .filter((director: string, i: number, arr: any[]) => arr.indexOf(director) === i)
+    this.runtimeList = source.map((obj: MovieModel) => obj.runTime)
+    .filter((runtime: number, i: number, arr: any[]) => arr.indexOf(runtime) === i)
   }
 
   public doReset() {
     this.userInput = ''
     this.selectedDirector = null
     this.selectedRuntime = null
-    this.selectedPrice = null
     this.dataSource = this.allData
+    this.generateSearchCriteria(this.allData!)
   }
 
-  public doFilterChain(){
-     this.dataSource = this.allData!
-     .filter(obj => {
-      if(this.selectedDirector == null) return true
-      return obj.director.name === this.selectedDirector
-     })
-     .filter(obj => {
-      if(this.selectedRuntime == null) return true
-      return obj.runTime === this.selectedRuntime
-     })
-     .filter(obj => {
-      if(this.selectedPrice == null) return true
-      return this.utils.generateMoviePrice(obj.runTime) === this.selectedPrice
-     })
+  public doFilterChain() {
+    if (this.allData == null) return
+
+    this.dataSource = this.allData!
+      .filter(obj => {
+        if (this.userInput == '') return true
+        return obj.title.includes(this.userInput) ||
+          obj.runTime.toString().includes(this.userInput) ||
+          obj.director.name.includes(this.userInput)
+      })
+      .filter(obj => {
+        if (this.selectedDirector == null) return true
+        return obj.director.name === this.selectedDirector
+      })
+      .filter(obj => {
+        if (this.selectedRuntime == null) return true
+        return obj.runTime === this.selectedRuntime
+      })
+
+      this.generateSearchCriteria(this.dataSource)
   }
 }

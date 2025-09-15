@@ -4,13 +4,13 @@
         <mat-card-content>
             <mat-form-field>
                 <mat-label>Pretraga</mat-label>
-                <input type="text" matInput placeholder="Unesite pojam za pretragu..." (keyup)="doSearch($event)" [(ngModel)]="userInput">
+                <input type="text" matInput placeholder="Unesite pojam za pretragu..." (keyup)="doFilterChain()" [(ngModel)]="userInput">
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Odaberite režisera</mat-label>
                 <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedDirector">
-                    <mat-option *ngFor="let dir of directors" [value]="dir.name">
-                        {{dir.name}}
+                    <mat-option *ngFor="let dir of directors" [value]="dir">
+                        {{dir}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -19,14 +19,6 @@
                 <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedRuntime">
                     <mat-option *ngFor="let runtime of runtimeList" [value]="runtime">
                         {{runtime}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Odaberite cenu</mat-label>
-                <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedPrice">
-                    <mat-option *ngFor="let price of priceList" [value]="price">
-                        {{price}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -79,6 +71,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
+     <p *ngIf="dataSource.length == 0">Nismo pronasli film</p>
 </div>
 
 <app-loading *ngIf="!dataSource" />
