@@ -1,19 +1,35 @@
-.details-wrapper{
+.details-wrapper {
     display: flex;
     justify-content: center;
     margin: 15px
 }
 
-.movie-card{
+.movie-card {
     max-width: 60%;
     margin: 20px;
 }
 
-.header{
-    display: flex;
-    flex-direction: row;
+.full-width-details {
+    margin: 10px;
+    padding: 5px;
+    width: 100%;
 }
 
-.mobile{
-    min-height: 250px;
+.header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 350px;
+}
+
+.content-details{
+    margin-top: 10px;
+}
+
+.glumci-font{
+   font-size: 14px;
+}
+
+.poster-details {
+    width: 30%;
 }
