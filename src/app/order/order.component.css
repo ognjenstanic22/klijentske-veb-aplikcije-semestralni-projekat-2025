@@ -1,33 +1,28 @@
-.movie-card-right {
+.order-content {
     display: flex;
-    flex-wrap: wrap;
-    width: 40%;
-    margin: 20px;
-}
-
-.movie-card-left {
-    display: flex;
-    flex-wrap: wrap;
-    width: 40%;
-    margin: 20px;
-}
-
-.movie-card-poster {
-    display: flex;
-    flex-wrap: wrap;
-    width: 95%;
-    height: 98%;
-    margin: 10px;
-}
-
-.movie-content {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
 }
 
-.desc{
+.order-card-left {
+    width: 40%;
+    margin: 20px;
+}
+
+.order-card-poster {
+    margin: 10px;
+    height: 98%;
+}
+
+.order-card-right {
+    display: flex;
+    flex-wrap: wrap;
+    width: 40%;
+    margin: 20px;
+}
+
+.margin-right{
     margin-bottom: 15px;
 }

@@ -1,74 +1,81 @@
 <div class="details-wrapper" *ngIf="movie">
     <mat-card class="movie-card" appearance="outlined">
-        <mat-card-content class="header">
-            <img mat-card-image class="poster-details" [src]="utils.generateMovieImage(movie.poster)"
-                [alt]="movie.title">
-            <mat-list role="list" class="full-width-details">
-                <h1 class="text-wrap">{{movie.title}}</h1>
-                <mat-list-item class="list-details">
-                    <span matListItemIcon>
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                    </span>
-                    <span matListItemTitle>
-                        Zanrovi
-                    </span>
-                    <span *ngFor="let genre of utils.getGenres(movie.movieGenres); let isLast = last">
-                        {{genre}}
-                        <span *ngIf="!isLast">, </span>
-                    </span>
-                </mat-list-item>
-                <mat-list-item>
-                    <span matListItemIcon>
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                    </span>
-                    <span matListItemTitle>
-                        Reziser
-                    </span>
-                    <span class="text-wrap">{{utils.getDirector(movie.director)}}</span>
-                </mat-list-item>
-                <mat-list-item>
-                    <span matListItemIcon>
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                    </span>
-                    <span matListItemTitle>
-                        Vreme trajanja
-                    </span>
-                    <span>{{movie.runTime}} minuta</span>
-                </mat-list-item>
-                <mat-list-item>
-                    <span matListItemIcon>
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                    </span>
-                    <span matListItemTitle>
-                        Pocetak projekcije
-                    </span>
-                    <span>{{utils.formatDate(movie.startDate)}}</span>
-                </mat-list-item>
-            </mat-list>
-        </mat-card-content>
+        <div class="header-details">
+            <mat-card-content class="header-left">
+                <img mat-card-image class="poster-details" [src]="utils.generateMovieImage(movie.poster)"
+                    [alt]="movie.title">
+            </mat-card-content>
+            <mat-card-content class="header-right">
+                <mat-list role="list" class="full-width-details">
+                    <h1 class="text-wrap">
+                        <i class="fa-solid fa-film"></i> {{movie.title}}
+                    </h1>
+                    <mat-list-item class="list-details">
+                        <span matListItemIcon>
+                            <i class="fa-solid fa-masks-theater"></i>
+                        </span>
+                        <span matListItemTitle>
+                            Žanrovi
+                        </span>
+                        <span *ngFor="let genre of utils.getGenres(movie.movieGenres); let isLast = last">
+                            {{genre}}
+                            <span *ngIf="!isLast">, </span>
+                        </span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemIcon>
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </span>
+                        <span matListItemTitle>
+                            Režiser
+                        </span>
+                        <span class="text-wrap">{{utils.getDirector(movie.director)}}</span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemIcon>
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </span>
+                        <span matListItemTitle>
+                            Vreme trajanja
+                        </span>
+                        <span>{{movie.runTime}} minuta</span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemIcon>
+                            <i class="fa-solid fa-calendar"></i>
+                        </span>
+                        <span matListItemTitle>
+                            Početak projekcije
+                        </span>
+                        <span>{{utils.formatDate(movie.startDate)}}</span>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </div>
         <mat-card-content class="content-details">
             <div>
                 <span matListItemIcon>
-                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <i class="fa-solid fa-users"></i>
                 </span>
                 <span matListItemTitle>
                     Glumci
                 </span>
                 <div class="glumci-font">
-                    <span class="text-wrap" *ngFor="let actors of utils.getActors(movie.movieActors); let isLast = last">
-                    {{actors}}
-                    <span *ngIf="!isLast">, </span>
+                    <span class="text-wrap"
+                        *ngFor="let actors of utils.getActors(movie.movieActors); let isLast = last">
+                        {{actors}}
+                        <span *ngIf="!isLast">, </span>
                     </span>
                 </div>
             </div>
         </mat-card-content>
         <mat-card-content>
-            <span matListItemTitle><i class="fa-solid fa-cart-shopping"></i> Opis: </span>
+            <span matListItemTitle><i class="fa-solid fa-message"></i> Opis: </span>
             <pre class="text-wrap">{{movie.description}}</pre>
         </mat-card-content>
         <mat-card-actions>
             <a mat-button [routerLink]="['/details/'+movie.shortUrl+'/order']">
-                <i class="fa-solid fa-cart-shopping"></i> Idi na rezervaciju
+                <i class="fa-solid fa-cart-shopping"></i> IDI NA REZERVACIJU
             </a>
         </mat-card-actions>
     </mat-card>

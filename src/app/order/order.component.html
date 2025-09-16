@@ -1,24 +1,24 @@
 <div class="wrapper">
-    <div class="movie-content" *ngIf="movie">
-        <mat-card class="movie-card-left">
-            <img class="movie-card-poster" [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
+    <div class="order-content" *ngIf="movie">
+        <mat-card class="order-card-left">
+            <img mat-card-image class="order-card-poster" [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
         </mat-card>
-        <mat-card class="movie-card-right" appearance="outlined">
+        <mat-card class="order-card-right" appearance="outlined">
             <mat-card-content>
-                <h1>Nova rezervacija:</h1>
-                <h1 class="text-wrap"><i class="fa-solid fa-clock-rotate-left"></i> {{movie.title}}</h1>
-                <mat-card-content class="desc">
-                    <mat-label><i class="fa-solid fa-clock-rotate-left"></i> Opis</mat-label>
+                <h1><i class="fa-solid fa-ticket-simple"></i>&nbsp;Nova rezervacija:</h1>
+                <h1 class="text-wrap"><i class="fa-solid fa-film"></i> {{movie.title}}</h1>
+                <mat-card-content class="margin-right">
+                    <mat-label><i class="fa-solid fa-message"></i> Opis</mat-label>
                     <pre class="text-wrap">{{movie.shortDescription}}</pre>
-                    <p><i class="fa-solid fa-clock-rotate-left"></i> Glumci: </p>
+                    <p><i class="fa-solid fa-users"></i> Glumci: </p>
                     <span class="text-wrap"
                         *ngFor="let actors of utils.getActors(movie.movieActors); let isLast = last">
                         {{actors}}
                         <span *ngIf="!isLast">, </span>
                     </span>
-                    <p><i class="fa-solid fa-clock-rotate-left"></i> Reziser: </p>
+                    <p><i class="fa-solid fa-bullhorn"></i> Režiser: </p>
                     <span class="text-wrap">{{utils.getDirector(movie.director)}}</span>
-                    <p><i class="fa-solid fa-clock-rotate-left"></i> Zanrovi: </p>
+                    <p><i class="fa-solid fa-masks-theater"></i> Žanrovi: </p>
                     <span *ngFor="let genre of utils.getGenres(movie.movieGenres); let isLast = last">
                         {{genre}}
                         <span *ngIf="!isLast">, </span>
@@ -29,21 +29,21 @@
                     <input type="text" matInput [value]="utils.formatDate(movie.createdAt)" disabled>
                 </mat-form-field>
                 <mat-form-field class="full-width">
-                    <mat-label><i class="fa-solid fa-clock-rotate-left"></i> Datum izlaska</mat-label>
+                    <mat-label><i class="fa-solid fa-calendar"></i> Datum izlaska</mat-label>
                     <input type="text" matInput [value]="utils.formatDate(movie.startDate)" disabled>
                 </mat-form-field>
                 <mat-form-field class="full-width">
-                    <mat-label><i class="fa-solid fa-clock-rotate-left"></i> Broj karata</mat-label>
+                    <mat-label><i class="fa-solid fa-ticket"></i> Broj karata</mat-label>
                     <input type="number" matInput [(ngModel)]="selectedTicketCount">
                 </mat-form-field>
                 <mat-form-field class="full-width">
-                    <mat-label><i class="fa-solid fa-clock-rotate-left"></i> Cena karte</mat-label>
+                    <mat-label><i class="fa-solid fa-money-bill"></i> Cena karte</mat-label>
                     <input type="text" matInput [value]="moviePrice" disabled>
                 </mat-form-field>
             </mat-card-content>
             <mat-card-actions>
                 <button mat-button (click)="doOrder()">
-                    <i class="fa-solid fa-cart-shopping"></i> Rezerviši
+                    <i class="fa-solid fa-cart-shopping"></i> REZERVIŠI
                 </button>
             </mat-card-actions>
         </mat-card>

@@ -4,59 +4,80 @@
     max-width: 800px;
 }
 
-.user-card-content{
-    padding: 10px;
+.no-border {
+    margin: 0;
+    padding: 0;
 }
 
-
-.actions {
-    min-width: 200px;
-    height: 52px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.user-card-content {
+    padding: 10px;
 }
 
 .no-order {
     margin-top: 30px;
-    width: 800px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
 
-.no-border{
-    margin: 0;
-    padding: 0;
+.wrapper-user-profile {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.movie-card{
+.user-order-title {
+    width: 100%;
+    text-align: center;
+}
+
+.movie-card {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     min-width: none;
-    height: 375px;
+    max-height: none;
     margin: 20px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.left{
+.top-user-order {
     margin-bottom: 15px;
-    max-width: 45%;
+    min-width: 30%;
 }
 
-.middle{
+.left-user-order {
+    min-width: 25%;
     margin-bottom: 15px;
-    max-width: 33%;
 }
 
-.right{
-    margin-top: 40px;
+.middle-user-order {
+    min-width: 25%;
     margin-bottom: 15px;
+}
+
+.right-user-order {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    min-width: 25%;
+    margin-bottom: 15px;
+}
+
+.right-user-order-padding{
+    margin-right: 35px;
+}
+
+.user-order-rating{
+    text-align: start;
+}
+
+.user-order-actions {
+    display: flex;
     flex-direction: column;
-    justify-content: center;
-    max-width: 33%;
 }
