@@ -45,6 +45,9 @@ export class SearchComponent {
     MovieService.getMovies()
       .then(rsp => {
         this.allData = rsp.data
+        // for(let m of this.allData!){
+        //   m.price = Math.floor((Math.random() * (10 - 5 + 1) + 5)*100)
+        // }
         this.dataSource = rsp.data
         this.generateSearchCriteria(rsp.data)
       })

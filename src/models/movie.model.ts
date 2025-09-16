@@ -21,4 +21,5 @@ export interface MovieModel {
     director: DirectorModel
     movieActors: MovieActorsModel[]
     movieGenres: MovieGenreModel[]
+    price: null | number
 }

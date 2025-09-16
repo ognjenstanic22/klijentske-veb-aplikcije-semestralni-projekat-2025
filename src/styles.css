@@ -64,3 +64,8 @@ body {
 .cyan{
     color: #00dddd
 }
+
+.bg-dark{
+    background-color: #1e2124;
+    color: white;
+}
