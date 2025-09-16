@@ -11,6 +11,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { GenreModel } from '../../models/genre.model';
+import { MovieService } from '../../services/movie.service';
 
 @Component({
   selector: 'app-user',
@@ -24,7 +27,8 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     NgFor,
     MatAccordion,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSelectModule
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
@@ -32,10 +36,13 @@ import { MatInputModule } from '@angular/material/input';
 export class UserComponent {
 
   public user: UserModel | null = null
+  public userCopy : UserModel | null = null
 
   public oldPasswordValue = ''
   public newPasswrodValue = ''
   public repeatPasswordValue = ''
+
+  public genreList: GenreModel[] = []
 
   constructor(private router: Router, public utils: UtilsService) {
     if (!UserService.getActiveUser()) {
@@ -46,6 +53,20 @@ export class UserComponent {
     }
 
     this.user = UserService.getActiveUser()
+    this.userCopy = UserService.getActiveUser()
+    MovieService.getMovieGenres()
+          .then(rsp => this.genreList = rsp.data)
+  }
+
+  public doUpdateUser(){
+    if(this.userCopy == null){
+      alert('Korisnik ne postoji')
+      return
+    }
+
+    UserService.updateUser(this.userCopy)
+    this.user = UserService.getActiveUser()
+    alert('Podaci su promenjeni')
   }
 
   public doChangePassword() {

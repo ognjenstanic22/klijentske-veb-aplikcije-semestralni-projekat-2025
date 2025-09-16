@@ -16,23 +16,67 @@
                         <mat-panel-title><i class="fa-solid fa-key"></i>&nbsp;Promeni lozinku </mat-panel-title>
                     </mat-expansion-panel-header>
 
-                    <mat-form-field>
+                    <mat-form-field class="full-width">
                         <mat-label>Stara lozinka</mat-label>
                         <input matInput type="password" [(ngModel)]="oldPasswordValue" />
                     </mat-form-field>
 
-                    <mat-form-field>
+                    <mat-form-field class="full-width">
                         <mat-label>Nova lozinka</mat-label>
                         <input matInput type="password" [(ngModel)]="newPasswrodValue" />
                     </mat-form-field>
 
-                    <mat-form-field>
+                    <mat-form-field class="full-width">
                         <mat-label>Ponovite novu lozinku</mat-label>
                         <input matInput type="password" [(ngModel)]="repeatPasswordValue" />
                     </mat-form-field>
 
                     <button mat-button (click)="doChangePassword()">
-                        Potvrdi
+                        <i class="fa-solid fa-paper-plane"></i> Potvrdi
+                    </button>
+                </mat-expansion-panel>
+                <mat-expansion-panel *ngIf="userCopy">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title><i class="fa-solid fa-user-tag"></i>&nbsp;Promeni lične podatke
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <mat-form-field class="full-width">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" [(ngModel)]="userCopy.email" disabled/>
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                        <mat-label>Ime</mat-label>
+                        <input matInput type="text" [(ngModel)]="userCopy.firstName" />
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                        <mat-label>Prezime</mat-label>
+                        <input matInput type="text" [(ngModel)]="userCopy.lastName" />
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                        <mat-label>Broj telefona</mat-label>
+                        <input matInput type="tel" [(ngModel)]="userCopy.phone" />
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                        <mat-label>Adresa</mat-label>
+                        <input matInput type="text" [(ngModel)]="userCopy.address" />
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                        <mat-label>Odaberite omiljen žanr</mat-label>
+                        <mat-select [(ngModel)]="userCopy.favouriteGenre">
+                            <mat-option *ngFor="let genre of genreList" [value]="genre.name">
+                                {{genre.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <button mat-button (click)="doUpdateUser()">
+                        <i class="fa-solid fa-paper-plane"></i> Promeni
                     </button>
                 </mat-expansion-panel>
             </mat-accordion>
