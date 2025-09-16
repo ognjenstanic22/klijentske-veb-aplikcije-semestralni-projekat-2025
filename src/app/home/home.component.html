@@ -12,7 +12,7 @@
         <img mat-card-image class="poster" [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
         <mat-card-content>
             <h3><i class="fa-solid fa-film"></i> {{movie.title}}</h3>
-            <p><i class="fa-solid fa-calendar"></i> Film izašao: </p>
+            <p><i class="fa-solid fa-calendar"></i> Izašao datuma: </p>
             <p> {{utils.formatDate(movie.startDate)}}</p>
             <p><i class="fa-solid fa-clock-rotate-left"></i> Početak projekcije: </p>
             <p> {{utils.formatDate(movie.createdAt)}}</p>

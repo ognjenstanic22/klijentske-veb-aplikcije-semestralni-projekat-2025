@@ -4,7 +4,8 @@
         <mat-card-content>
             <mat-form-field>
                 <mat-label>Pretraga</mat-label>
-                <input type="text" matInput placeholder="Unesite pojam za pretragu..." (keyup)="doFilterChain()" [(ngModel)]="userInput">
+                <input type="text" matInput placeholder="Unesite pojam za pretragu..." (keyup)="doFilterChain()"
+                    [(ngModel)]="userInput">
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Odaberite režisera</mat-label>
@@ -22,6 +23,38 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-form-field>
+                <mat-label>Odaberite zanr</mat-label>
+                <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedGenre">
+                    <mat-option *ngFor="let genre of genres" [value]="genre">
+                        {{genre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Odaberite glumca</mat-label>
+                <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedActor">
+                    <mat-option *ngFor="let actor of actors" [value]="actor">
+                        {{actor}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Početak prikazivanja</mat-label>
+                <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedProj">
+                    <mat-option *ngFor="let proj of projectionDate" [value]="proj">
+                        {{proj}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Datum izlaska</mat-label>
+                <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedRelease">
+                    <mat-option *ngFor="let rel of releaseDate" [value]="rel">
+                        {{rel}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </mat-card-content>
         <mat-card-actions>
             <button mat-button (click)="doReset()">
@@ -29,50 +62,97 @@
             </button>
         </mat-card-actions>
     </mat-card>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-        <ng-container matColumnDef="movieId">
-            <th mat-header-cell *matHeaderCellDef><i class="fa-solid fa-hashtag"></i> ID </th>
-            <td mat-cell *matCellDef="let element"> {{element.movieId}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef> Title </th>
-            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="runTime">
-            <th mat-header-cell *matHeaderCellDef> Runtime </th>
-            <td mat-cell *matCellDef="let element"> {{element.runTime}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="director.name">
-            <th mat-header-cell *matHeaderCellDef> Director </th>
-            <td mat-cell *matCellDef="let element"> {{element.director.name}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Price </th>
-            <td mat-cell *matCellDef="let element"> {{utils.generateMoviePrice(element.runTime)}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef> Actions </th>
-            <td mat-cell *matCellDef="let element">
-                <a mat-button [routerLink]="['/details/', element.shortUrl]">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Detalji
-                </a>
-                <a mat-button [routerLink]="['/details/'+element.shortUrl+'/order']">
-                    <i class="fa-solid fa-cart-shopping"></i> Rezerviši
-                </a>
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-     <p *ngIf="dataSource.length == 0">Nismo pronasli film</p>
+    <p *ngIf="dataSource.length == 0">Nismo pronasli film</p>
 </div>
+
+<div *ngIf="dataSource" class="search-wrapper">
+    <mat-card *ngFor="let movie of dataSource">
+        <img mat-card-image class="search-poster" [src]="utils.generateMovieImage(movie.poster)" [alt]="movie.title">
+        <mat-card-content class="search-content">
+            <h3 class="text-wrap">
+                <i class="fa-solid fa-film"></i> {{movie.title}}
+            </h3>
+            <mat-list-item class="list-search">
+                <span matListItemIcon>
+                    <i class="fa-solid fa-masks-theater"></i>
+                </span>
+                <span matListItemTitle class="span-title">
+                    Žanrovi:
+                </span>
+                <span *ngFor="let genre of utils.getGenres(movie.movieGenres); let isLast = last">
+                    {{genre}}
+                    <span *ngIf="!isLast">, </span>
+                </span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matListItemIcon>
+                    <i class="fa-solid fa-bullhorn"></i>
+                </span>
+                <span matListItemTitle class="span-title">
+                    Režiser:
+                </span>
+                <span class="text-wrap">{{utils.getDirector(movie.director)}}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matListItemIcon>
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </span>
+                <span matListItemTitle class="span-title">
+                    Vreme trajanja:
+                </span>
+                <span>{{movie.runTime}} minuta</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matListItemIcon>
+                    <i class="fa-solid fa-calendar"></i>
+                </span>
+                <span matListItemTitle class="span-title">
+                    Početak projekcije:
+                </span>
+                <span>{{utils.formatDate(movie.createdAt)}}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matListItemIcon>
+                    <i class="fa-solid fa-calendar"></i>
+                </span>
+                <span matListItemTitle class="span-title">
+                    Izašao datuma:
+                </span>
+                <span>{{utils.formatDate(movie.startDate)}}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matListItemIcon>
+                    <i class="fa-solid fa-users"></i>
+                </span>
+                <span matListItemTitle class="span-title">
+                    Glumci:
+                </span>
+                <div class="glumci-font">
+                    <span class="text-wrap"
+                        *ngFor="let actors of utils.getActors(movie.movieActors); let isLast = last">
+                        {{actors}}
+                        <span *ngIf="!isLast">, </span>
+                    </span>
+                </div>
+            </mat-list-item>
+            <span matListItemIcon><i class="fa-solid fa-message"></i></span>
+            <span matListItemTitle class="span-title"> Opis: </span>
+            <pre class="text-wrap">{{movie.shortDescription}}</pre>
+        </mat-card-content>
+        <mat-card-footer>
+            <mat-card-actions>
+                <a mat-button [routerLink]="['/details/', movie.shortUrl]">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> DETALJI
+                </a>
+                <a mat-button [routerLink]="['/details/'+movie.shortUrl+'/order']">
+                    <i class="fa-solid fa-cart-shopping"></i> REZERVIŠI
+                </a>
+            </mat-card-actions>
+        </mat-card-footer>
+    </mat-card>
+
+</div>
+
+
 
 <app-loading *ngIf="!dataSource" />

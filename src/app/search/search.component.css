@@ -1,0 +1,22 @@
+.search-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 15px;
+    gap: 30px;
+}
+
+.search-poster{
+    min-width: 250px;
+    max-height: 250px;
+}
+
+.search-content{
+    padding: 10px;
+    max-width: 350px;
+    min-height: 400px;
+}
+
+.span-title{
+    margin-right: 7px;
+}

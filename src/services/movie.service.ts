@@ -35,6 +35,10 @@ export class MovieService{
         return client.get(`/genre`)
     }
 
+    static async getMovieActors() {
+        return client.get(`/actor`)
+    }
+
     static async getMovieGenresById(id: number) {
         return client.get(`/genre/${id}`)
     }
