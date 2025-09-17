@@ -148,6 +148,14 @@ export class UserComponent {
     if (UserService.changeOrderStatus('gledano', order.id)) {
       this.user = UserService.getActiveUser()
     }
+
+    Swal.fire({
+        icon: "success",
+        text: "Uspešno plaćeno!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+    });
   }
 
   public doCancel(order: OrderModel) {
@@ -166,6 +174,14 @@ export class UserComponent {
     if (UserService.deleteOrder(order)) {
       this.user = UserService.getActiveUser()
     }
+
+    Swal.fire({
+        icon: "success",
+        text: "Rezervacija uspešno obrisana!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+      });
   }
 
 }
