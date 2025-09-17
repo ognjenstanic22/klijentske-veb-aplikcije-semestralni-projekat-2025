@@ -40,8 +40,8 @@ export class UserService {
     static updateUser(model: UserModel) {
         const users = this.retrieveUsers();
 
-        for(let u of users){
-            if(u.email === model.email){
+        for (let u of users) {
+            if (u.email === model.email) {
                 u.firstName = model.firstName
                 u.lastName = model.lastName
                 u.phone = model.phone
@@ -83,6 +83,26 @@ export class UserService {
         for (let user of arr) {
             if (user.email == localStorage.getItem('active')) {
                 user.orders.push(order)
+                localStorage.setItem('users', JSON.stringify(arr))
+                return true
+            }
+        }
+
+        return false
+    }
+
+    static deleteOrder(order: OrderModel): boolean {
+
+        let index = 0
+        const arr = this.retrieveUsers()
+        for (let user of arr) {
+            if (user.email == localStorage.getItem('active')) {
+                for(let o of user.orders){
+                    if(o.id === order.id){
+                        index = o.id
+                    }
+                }
+                user.orders = user.orders.filter(obj => obj.id !== index)
                 localStorage.setItem('users', JSON.stringify(arr))
                 return true
             }

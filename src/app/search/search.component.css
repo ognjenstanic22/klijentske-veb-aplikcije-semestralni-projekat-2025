@@ -6,6 +6,16 @@
     gap: 30px;
 }
 
+.search-input-content{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.search-inputs{
+    padding: 5px
+}
+
 .search-poster{
     min-width: 250px;
     max-height: 250px;

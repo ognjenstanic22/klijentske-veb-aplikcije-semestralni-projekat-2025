@@ -153,6 +153,11 @@
                                         <i class="fa-solid fa-ban"></i> OTKAŽI
                                     </button>
                                 </div>
+                                <div *ngIf="o.status == 'otkazano'" class="user-order-actions">
+                                    <button type="button" mat-button (click)="doDeleteOrder(o)">
+                                        <i class="fa-solid fa-cart-shopping"></i> OBRIŠI
+                                    </button>
+                                </div>
                                 <div *ngIf="o.status == 'gledano' && o.rating == null" class="user-order-actions">
                                     <button type="button" mat-button (click)="doRating(o, true)">
                                         <i class="fa-solid fa-thumbs-up"></i> DOBAR

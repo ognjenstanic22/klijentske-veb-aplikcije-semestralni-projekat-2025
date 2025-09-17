@@ -1,13 +1,13 @@
 <div class="wrapper" *ngIf="dataSource">
     <h1>Pretraga</h1>
     <mat-card>
-        <mat-card-content>
-            <mat-form-field>
+        <mat-card-content class="search-input-content">
+            <mat-form-field class="search-inputs">
                 <mat-label>Pretraga</mat-label>
                 <input type="text" matInput placeholder="Unesite pojam za pretragu..." (keyup)="doFilterChain()"
                     [(ngModel)]="userInput">
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="search-inputs">
                 <mat-label>Odaberite režisera</mat-label>
                 <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedDirector">
                     <mat-option *ngFor="let dir of directors" [value]="dir">
@@ -15,7 +15,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="search-inputs">
                 <mat-label>Odaberite trajanje filma</mat-label>
                 <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedRuntime">
                     <mat-option *ngFor="let runtime of runtimeList" [value]="runtime">
@@ -23,15 +23,15 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field>
-                <mat-label>Odaberite zanr</mat-label>
+            <mat-form-field class="search-inputs">
+                <mat-label>Odaberite žanr</mat-label>
                 <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedGenre">
                     <mat-option *ngFor="let genre of genres" [value]="genre">
                         {{genre}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="search-inputs">
                 <mat-label>Odaberite glumca</mat-label>
                 <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedActor">
                     <mat-option *ngFor="let actor of actors" [value]="actor">
@@ -39,7 +39,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="search-inputs">
                 <mat-label>Početak prikazivanja</mat-label>
                 <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedProj">
                     <mat-option *ngFor="let proj of projectionDate" [value]="proj">
@@ -47,11 +47,19 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="search-inputs">
                 <mat-label>Datum izlaska</mat-label>
                 <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedRelease">
                     <mat-option *ngFor="let rel of releaseDate" [value]="rel">
                         {{rel}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="search-inputs">
+                <mat-label>Cena karte</mat-label>
+                <mat-select (selectionChange)="doFilterChain()" [(ngModel)]="selectedPrice">
+                    <mat-option *ngFor="let price of ticketPrice" [value]="price">
+                        {{price}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -119,6 +127,15 @@
                     Izašao datuma:
                 </span>
                 <span>{{utils.formatDate(movie.startDate)}}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matListItemIcon>
+                    <i class="fa-solid fa-money-bill"></i>
+                </span>
+                <span matListItemTitle class="span-title">
+                    Cena karte:
+                </span>
+                <span>{{movie.price}}</span>
             </mat-list-item>
             <mat-list-item>
                 <span matListItemIcon>

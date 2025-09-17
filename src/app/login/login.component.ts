@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { UserService } from '../../services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +19,8 @@ export class LoginComponent {
   public email: string = ''
   public password: string = ''
 
-  constructor(private router: Router) { 
-    if(UserService.getActiveUser()){
+  constructor(private router: Router) {
+    if (UserService.getActiveUser()) {
       router.navigate(['/user'])
       return
     }
@@ -27,12 +28,25 @@ export class LoginComponent {
 
   public doLogin() {
     if (UserService.login(this.email, this.password)) {
-      // redirect to profile
+      Swal.fire({
+        icon: "success",
+        text: "Uspešno ulogovani!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+      });
       this.router.navigate(['/user'])
       return
     }
 
-    alert('Loša e-mail adresa ili šifra')
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Loša e-mail adresa ili šifra!",
+      customClass: {
+        popup: 'bg-dark'
+      }
+    });
   }
 
 }

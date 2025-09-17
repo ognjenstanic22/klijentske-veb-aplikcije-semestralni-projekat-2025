@@ -60,16 +60,22 @@ export class SearchComponent {
   releaseDate: string[] | null = null
   selectedRelease: string | null = null
 
+  ticketPrice: number[] | null = null
+  selectedPrice: number | null = null
+
   userInput: string = ''
 
   public constructor(public utils: UtilsService) {
     MovieService.getMovies()
       .then(rsp => {
         this.allData = rsp.data
-        // for(let m of this.allData!){
-        //   m.price = Math.floor((Math.random() * (10 - 5 + 1) + 5)*100)
-        // }
+        for (let m of this.allData!) {
+          m.price = utils.generateMoviePrice(m.runTime)
+        }
         this.dataSource = rsp.data
+        for (let m of this.dataSource!) {
+          m.price = utils.generateMoviePrice(m.runTime)
+        }
         this.generateSearchCriteria(rsp.data)
       })
     MovieService.getMovieGenres()
@@ -103,7 +109,8 @@ export class SearchComponent {
       .filter((proj: string, i: number, arr: any[]) => arr.indexOf(proj) === i)
     this.releaseDate = source.map((obj: MovieModel) => this.utils.formatDate(obj.startDate))
       .filter((start: string, i: number, arr: any[]) => arr.indexOf(start) === i)
-
+    this.ticketPrice = source.map((obj: MovieModel) => obj.price)
+      .filter((price: number, i: number, arr: any[]) => arr.indexOf(price) === i)
   }
 
   public doReset() {
@@ -114,6 +121,7 @@ export class SearchComponent {
     this.selectedActor = null
     this.selectedProj = null
     this.selectedRelease = null
+    this.selectedPrice = null
     this.dataSource = this.allData
     this.generateActorCriteria(this.actorData!)
     this.generateGenreCriteria(this.GenreData!)
@@ -128,7 +136,9 @@ export class SearchComponent {
         if (this.userInput == '') return true
         return obj.title.includes(this.userInput) ||
           obj.runTime.toString().includes(this.userInput) ||
-          obj.director.name.includes(this.userInput)
+          obj.director.name.includes(this.userInput) ||
+          obj.shortDescription.includes(this.userInput) ||
+          obj.price.toString().includes(this.userInput)
       })
       .filter(obj => {
         if (this.selectedDirector == null) return true
@@ -137,6 +147,10 @@ export class SearchComponent {
       .filter(obj => {
         if (this.selectedRuntime == null) return true
         return obj.runTime === this.selectedRuntime
+      })
+      .filter(obj => {
+        if (this.selectedPrice == null) return true
+        return obj.price === this.selectedPrice
       })
       .filter(obj => {
         if (this.selectedGenre == null) return true

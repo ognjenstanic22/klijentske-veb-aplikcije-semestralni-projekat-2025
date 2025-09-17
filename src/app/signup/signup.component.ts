@@ -10,6 +10,7 @@ import { GenreModel } from '../../models/genre.model';
 import { MovieService } from '../../services/movie.service';
 import { NgFor } from '@angular/common';
 import { UserService } from '../../services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -36,12 +37,25 @@ export class SignupComponent {
 
   public doSignup() {
     if (this.email == '' || this.password == '') {
-      alert('Email i lozinka su obavezna polja!')
+      Swal.fire({
+        icon: "error",
+        text: "Loša e-mail adresa ili šifra!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+      });
+
       return
     }
 
     if (this.password !== this.repeatPassword) {
-      alert('Lozinke nisu iste!')
+      Swal.fire({
+        icon: "error",
+        text: "Lozinke nisu iste!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+      });
       return
     }
 
@@ -56,7 +70,23 @@ export class SignupComponent {
       orders: []
     })
 
-    result ? this.router.navigate(['/login']) : alert('Nalog sa ovim Email-om već postoji')
+    if (result) {
+      Swal.fire({
+        icon: "success",
+        text: "Uspešno kreiran nalog!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+      });
+    }
+
+    result ? this.router.navigate(['/login']) : Swal.fire({
+      icon: "error",
+      text: "Nalog sa ovim Email-om već postoji!",
+      customClass: {
+        popup: 'bg-dark'
+      }
+    });
   }
 
 }

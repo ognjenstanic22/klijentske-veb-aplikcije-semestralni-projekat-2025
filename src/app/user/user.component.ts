@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { GenreModel } from '../../models/genre.model';
 import { MovieService } from '../../services/movie.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user',
@@ -36,7 +37,7 @@ import { MovieService } from '../../services/movie.service';
 export class UserComponent {
 
   public user: UserModel | null = null
-  public userCopy : UserModel | null = null
+  public userCopy: UserModel | null = null
 
   public oldPasswordValue = ''
   public newPasswrodValue = ''
@@ -55,40 +56,88 @@ export class UserComponent {
     this.user = UserService.getActiveUser()
     this.userCopy = UserService.getActiveUser()
     MovieService.getMovieGenres()
-          .then(rsp => this.genreList = rsp.data)
+      .then(rsp => this.genreList = rsp.data)
   }
 
-  public doUpdateUser(){
-    if(this.userCopy == null){
-      alert('Korisnik ne postoji')
+  public doUpdateUser() {
+    if (this.userCopy == null) {
+      Swal.fire({
+        icon: "error",
+        text: "Korisnik ne postoji!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+      });
       return
     }
 
     UserService.updateUser(this.userCopy)
     this.user = UserService.getActiveUser()
-    alert('Podaci su promenjeni')
+    Swal.fire({
+      icon: "success",
+      text: "Uspešno ste promenili podatke!",
+      customClass: {
+        popup: 'bg-dark'
+      }
+    });
   }
 
   public doChangePassword() {
 
     if (this.newPasswrodValue == '' || this.oldPasswordValue == '' || this.repeatPasswordValue == '') {
-      alert('Lozinke ne mogu biti prazne')
+      Swal.fire({
+        icon: "error",
+        text: "Lozinke ne mogu biti prazne!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+      });
       return
     }
 
     if (this.newPasswrodValue !== this.repeatPasswordValue) {
-      alert('Lozinke se ne poklapaju')
+      Swal.fire({
+        icon: "error",
+        text: "Lozinke se ne poklapaju!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+      });
       return
     }
 
     if (this.oldPasswordValue !== this.user?.password) {
-      alert('Stara lozinka nije ispravna')
+      Swal.fire({
+        icon: "error",
+        text: "Stara lozinka nije ispravna!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+      });
       return
     }
 
-    alert(UserService.changePassword(this.newPasswrodValue) ?
-      'Lozinka uspešno promenjena' : 'Lozinka nije promenjena'
-    )
+    const result = UserService.changePassword(this.newPasswrodValue)
+
+    if (result) {
+      Swal.fire({
+        icon: "success",
+        text: "Lozinka uspešno promenjena!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+      });
+
+      this.user = UserService.getActiveUser()
+    } else {
+      Swal.fire({
+        icon: "error",
+        text: "Lozinka nije promenjena!",
+        customClass: {
+          popup: 'bg-dark'
+        }
+      });
+    }
 
     this.oldPasswordValue = ''
     this.newPasswrodValue = ''
@@ -109,6 +158,12 @@ export class UserComponent {
 
   public doRating(order: OrderModel, r: boolean) {
     if (UserService.changeRating(r, order.id)) {
+      this.user = UserService.getActiveUser()
+    }
+  }
+
+  public doDeleteOrder(order: OrderModel) {
+    if (UserService.deleteOrder(order)) {
       this.user = UserService.getActiveUser()
     }
   }

@@ -21,14 +21,13 @@ import Swal from 'sweetalert2';
 export class OrderComponent {
   public movie: MovieModel | null = null
   public selectedTicketCount: number = 1
-  public moviePrice: number = 1
 
   public constructor(private route: ActivatedRoute, public utils: UtilsService, private router: Router) {
     route.params.subscribe(params => {
       MovieService.getMoviesByShortUrl(params['url'])
         .then(rsp => {
           this.movie = rsp.data
-          this.moviePrice = utils.generateMoviePrice(rsp.data.runTime)
+          this.movie!.price = utils.generateMoviePrice(rsp.data.runTime)
         })
     })
   }
@@ -60,7 +59,7 @@ export class OrderComponent {
             createdAt: this.movie!.createdAt,
             startDate: this.movie!.startDate,
             count: this.selectedTicketCount,
-            pricePerItem: this.moviePrice,
+            pricePerItem: this.movie!.price,
             status: 'rezervisano',
             rating: null
           })
